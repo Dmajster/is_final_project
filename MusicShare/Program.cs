@@ -1,0 +1,13 @@
+using MusicShare.Data;
+
+namespace MusicShare
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            using var context = new MusicShareContext();
+            context.SaveChanges();
+        }
+    }
+}
