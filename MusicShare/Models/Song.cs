@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicShare.Models
 {
@@ -21,6 +17,5 @@ namespace MusicShare.Models
 
         [ForeignKey("GenreId")]
         public Genre Genre { get; set; }
-
     }
 }
