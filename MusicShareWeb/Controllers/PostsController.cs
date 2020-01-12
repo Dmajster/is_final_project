@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using MusicShare.Data;
 using MusicShare.Models;
 
@@ -13,6 +16,12 @@ namespace MusicShareWeb.Controllers
     public class PostsController : Controller
     {
         private readonly MusicShareContext _context;
+        private IWebHostEnvironment _webHostEnvironment;
+        public PostsController(MusicShareContext context, IWebHostEnvironment environment)
+        {
+            _context = context;
+            _webHostEnvironment = environment;
+        }
 
         private IEnumerable<SelectListItem> GetSongs()
         {
@@ -33,10 +42,6 @@ namespace MusicShareWeb.Controllers
                     Text = artist.Name
                 })
                 .ToList();
-        }
-        public PostsController(MusicShareContext context)
-        {
-            _context = context;
         }
 
         // GET: Posts
@@ -91,12 +96,50 @@ namespace MusicShareWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        var directory = Path.GetDirectoryName(uploads);
+
+                        if (!Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        var fileName = Path.GetRandomFileName();
+                        fileName = fileName.Replace(".", "a");
+                        fileName += ".pdf";
+
+                        var fullPath = Path.Combine(uploads, fileName);
+
+                        post.PdfFilePath = fileName;
+
+                        // If file with same name exists delete it
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            System.IO.File.Delete(fullPath);
+                        }
+
+                        // Create new local file and copy contents of uploaded file
+                        using (var localFile = System.IO.File.OpenWrite(fullPath))
+                        using (var uploadedFile = file.OpenReadStream())
+                        {
+                            uploadedFile.CopyTo(localFile);
+                        }
+                    }
+                }
+
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", post.ArtistId);
             ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id", post.SongId);
+
             return View(post);
         }
 
