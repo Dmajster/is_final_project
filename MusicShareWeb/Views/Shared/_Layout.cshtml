@@ -19,6 +19,9 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
                     <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-fill form-inline">
+                        <input class="form-control flex-fill" style="border-color:black; font-size:12px;" type="search" placeholder="Išči glasbo" aria-label="Išči">
+                    </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Zacetna</a>
@@ -35,13 +38,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Artists" asp-action="Index">Artists</a>
                         </li>
-                        <li>
-
-                            <div class="form-inline my-2 my-lg-0 ml-3 pt-1 align-items-center text-center">
-                                <input class="form-control mr-sm-2" style="border-color:black; font-size:12px;"  type="search" placeholder="Išči glasbo" aria-label="Išči">
-                            </div>
-                        </li>
                     </ul>
+                    
                 </div>
             </div>
         </nav>
