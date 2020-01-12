@@ -1,13 +1,14 @@
+﻿using System;
+using System.Linq;
 using MusicShare.Data;
+using MusicShare.Models;
 
 namespace MusicShare
 {
-    internal class Program
+    class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
-            using var context = new MusicShareContext();
-            context.SaveChanges();
         }
     }
 }

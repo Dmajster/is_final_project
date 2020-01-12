@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MusicShare.Data;
+using MusicShare.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MusicShare.Data;
 
 namespace MusicShareWeb
 {
@@ -26,6 +28,12 @@ namespace MusicShareWeb
         {
             services.AddControllersWithViews();
             services.AddDbContext<MusicShareContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(
+            options => options.Stores.MaxLengthForKeys = 128)
+            .AddEntityFrameworkStores<MusicShareContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +54,7 @@ namespace MusicShareWeb
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -53,6 +62,7 @@ namespace MusicShareWeb
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

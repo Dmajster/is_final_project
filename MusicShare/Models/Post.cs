@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicShare.Models
 {
     public class Post
     {
+#nullable enable
         public int Id { get; set; }
 
         public int? SongId { get; set; }
@@ -23,5 +27,9 @@ namespace MusicShare.Models
         public string PdfFilePath { get; set; }
 
         public bool Reviewed { get; set; }
+
+        public ApplicationUser? Owner { get; set; }
+#nullable disable
+
     }
 }
