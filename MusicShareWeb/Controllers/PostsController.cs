@@ -79,11 +79,23 @@ namespace MusicShareWeb.Controllers
             return View();
         }
 
-        public IActionResult Show()
+        public async Task<IActionResult> Show(int? id)
         {
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id");
-            ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id");
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = await _context.Posts
+                .Include(p => p.Artist)
+                .Include(p => p.Song)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
         }
 
 
