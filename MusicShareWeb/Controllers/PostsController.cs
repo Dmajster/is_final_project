@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -90,6 +91,7 @@ namespace MusicShareWeb.Controllers
                 .Include(p => p.Artist)
                 .Include(p => p.Song)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (post == null)
             {
                 return NotFound();
@@ -106,7 +108,9 @@ namespace MusicShareWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,SongId,ArtistId,ViewCount,YoutubeLink,PdfFilePath,Reviewed")] Post post, List<IFormFile> files)
         {
-            if (ModelState.IsValid)
+            var isNormalYoutubeLink = Regex.IsMatch(post.YoutubeLink, "((http(s)?://)(www.)?)?youtube.com\\/watch\\?v=([^#&?]).*");
+
+            if (ModelState.IsValid && isNormalYoutubeLink)
             {
                 var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
 
@@ -143,6 +147,10 @@ namespace MusicShareWeb.Controllers
                         }
                     }
                 }
+
+                var videoId = post.YoutubeLink.Split("=")[1];
+
+                post.YoutubeLink = $"https://www.youtube.com/embed/{videoId}";
 
                 _context.Add(post);
                 await _context.SaveChangesAsync();
