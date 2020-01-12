@@ -10,8 +10,8 @@ using MusicShare.Data;
 namespace MusicShare.Migrations
 {
     [DbContext(typeof(MusicShareContext))]
-    [Migration("20200111215510_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200112181234_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -278,6 +278,9 @@ namespace MusicShare.Migrations
 
                     b.Property<int?>("SongId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Test")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");

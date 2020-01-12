@@ -277,6 +277,9 @@ namespace MusicShare.Migrations
                     b.Property<int?>("SongId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Test")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");
 

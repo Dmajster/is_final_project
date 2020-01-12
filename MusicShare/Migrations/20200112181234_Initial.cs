@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MusicShare.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -220,6 +220,7 @@ namespace MusicShare.Migrations
                     YoutubeLink = table.Column<string>(nullable: false),
                     PdfFilePath = table.Column<string>(nullable: false),
                     Reviewed = table.Column<bool>(nullable: false),
+                    Test = table.Column<bool>(nullable: false),
                     OwnerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

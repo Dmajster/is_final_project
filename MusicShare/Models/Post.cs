@@ -13,12 +13,12 @@ namespace MusicShare.Models
         public int? SongId { get; set; }
 
         [ForeignKey("SongId")]
-        public Song Song { get; set; }
+        public Song? Song { get; set; }
 
         public int? ArtistId { get; set; }
 
         [ForeignKey("ArtistId")]
-        public Artist Artist { get; set; }
+        public Artist? Artist { get; set; }
 
         public int ViewCount { get; set; }
 
@@ -27,6 +27,8 @@ namespace MusicShare.Models
         public string PdfFilePath { get; set; }
 
         public bool Reviewed { get; set; }
+
+        public bool Test { get; set; }
 
         public ApplicationUser? Owner { get; set; }
 #nullable disable

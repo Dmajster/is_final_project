@@ -44,10 +44,9 @@ namespace MusicShareWeb.Controllers
         // GET: Songs
         public async Task<IActionResult> Index()
         {
-           var list = _context.Songs.Include(p => p.Artist); 
-            
+           var list = _context.Songs.Include(p => p.Artist);
 
-            return View(list.ToList());
+           return View(list.ToList());
         }
 
         // GET: Songs/Details/5
