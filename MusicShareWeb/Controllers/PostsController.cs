@@ -14,6 +14,26 @@ namespace MusicShareWeb.Controllers
     {
         private readonly MusicShareContext _context;
 
+        private IEnumerable<SelectListItem> GetSongs()
+        {
+            return _context.Songs
+                .Select(song => new SelectListItem
+                {
+                    Value = song.Id.ToString(),
+                    Text = song.Name
+                })
+                .ToList();
+        }
+        private IEnumerable<SelectListItem> GetArtists()
+        {
+            return _context.Artists
+                .Select(artist => new SelectListItem
+                {
+                    Value = artist.Id.ToString(),
+                    Text = artist.Name
+                })
+                .ToList();
+        }
         public PostsController(MusicShareContext context)
         {
             _context = context;
@@ -49,8 +69,8 @@ namespace MusicShareWeb.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id");
-            ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id");
+            ViewBag.SongList = new SelectList(GetSongs(), "Value", "Text");
+            ViewBag.ArtistsList = new SelectList(GetArtists(), "Value", "Text");
             return View();
         }
 
@@ -69,8 +89,6 @@ namespace MusicShareWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,SongId,ArtistId,ViewCount,YoutubeLink,PdfFilePath,Reviewed")] Post post, List<IFormFile> files)
         {
-
-
             if (ModelState.IsValid)
             {
                 _context.Add(post);
