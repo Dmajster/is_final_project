@@ -113,8 +113,8 @@ namespace MusicShareWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", post.ArtistId);
-            ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id", post.SongId);
+            ViewBag.SongList = new SelectList(GetSongs(), "Value", "Text");
+            ViewBag.ArtistsList = new SelectList(GetArtists(), "Value", "Text");
             return View(post);
         }
 
