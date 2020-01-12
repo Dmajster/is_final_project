@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace MusicShare.Models
 {
@@ -28,7 +29,7 @@ namespace MusicShare.Models
 
         public bool Reviewed { get; set; }
 
-        public bool Test { get; set; }
+        public IFormFile PdfFile { get; set; }
 
         public ApplicationUser? Owner { get; set; }
 #nullable disable
