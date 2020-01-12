@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MusicShare.Data;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace MusicShareWeb
@@ -28,6 +30,11 @@ namespace MusicShareWeb
         {
             services.AddControllersWithViews();
             services.AddDbContext<MusicShareContext>();
+
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
             services.AddIdentity<ApplicationUser, IdentityRole>(
             options => options.Stores.MaxLengthForKeys = 128)
             .AddEntityFrameworkStores<MusicShareContext>()

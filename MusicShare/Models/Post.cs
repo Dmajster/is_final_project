@@ -29,6 +29,7 @@ namespace MusicShare.Models
 
         public bool Reviewed { get; set; }
 
+        [NotMapped]
         public IFormFile PdfFile { get; set; }
 
         public ApplicationUser? Owner { get; set; }
