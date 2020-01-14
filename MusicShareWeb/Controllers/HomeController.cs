@@ -22,6 +22,7 @@ namespace MusicShareWeb.Controllers
         public IActionResult Index()
         {
             ViewData["Posts"] = _context.Posts
+                .Where(p => p.Reviewed)
                 .Include(p => p.Artist)
                 .Include(p => p.Song)
                 .OrderByDescending(p => p.ViewCount)
