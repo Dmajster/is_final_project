@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using MusicShare.Models;
 
 namespace MusicShareWeb.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class PostsController : Controller
     {
         private readonly MusicShareContext _context;
@@ -80,6 +82,7 @@ namespace MusicShareWeb.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Show(int? id)
         {
             if (id == null)
