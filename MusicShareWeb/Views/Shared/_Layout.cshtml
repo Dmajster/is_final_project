@@ -13,19 +13,22 @@
             <button class="ms-nav-logo" onclick="location.href = '@Url.Action("Index", "Home")'">
                 MusicShare
             </button>
-            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Posts")'">
-                Posts
-            </button>
-            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Songs")'">
-                Songs
-            </button>
-            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Genres")'">
-                Genres
-            </button>
-            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Artists")'">
-                Artists
-            </button>
-        </section>
+            @if (User.IsInRole("Administrator"))
+            {
+                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Posts")'">
+                    Posts
+                </button>
+                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Songs")'">
+                    Songs
+                </button>
+                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Genres")'">
+                    Genres
+                </button>
+                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Artists")'">
+                    Artists
+                </button>
+            }
+            </section>
 
         <section class="ms-nav-middle">
             <input class="ms-nav-search" placeholder="Išči glasbo">
