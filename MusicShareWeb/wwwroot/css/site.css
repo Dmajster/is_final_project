@@ -63,6 +63,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-color: #303030;
 }
 
 .footer {
@@ -90,7 +91,6 @@ body {
     grid-auto-flow: column;
     grid-template-areas: "left middle right";
     grid-template-columns: max-content auto max-content;
-
     height: 80px;
     box-shadow: 1px 1px 1px 1px #000000;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -115,7 +115,6 @@ body {
     max-width: 512px;
     height: calc(80px - 2 * 8px);
     padding: 16px;
-
     border: 0;
     background-color: #efefef;
 }
@@ -137,6 +136,7 @@ body {
 }
 
 .ms-post {
+    background-color: #333;
     display: grid;
     grid-template-areas: "song" "artist" "view_count";
     grid-template-columns: 100%;
@@ -148,7 +148,6 @@ body {
     height: 20vw;
     border: 0;
     overflow: hidden;
-
     color: white;
     font-size: 24px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -162,7 +161,13 @@ body {
     width: 100%;
     height: 100%;
     background-position: center;
-    filter: blur(30px);
+    filter: blur(15px);
+    transition: 200ms filter linear;
+}
+
+.ms-post:hover > .ms-post-img {
+    filter: blur(5px);
+    transition: 200ms filter linear;
 }
 
 .ms-post-song {
