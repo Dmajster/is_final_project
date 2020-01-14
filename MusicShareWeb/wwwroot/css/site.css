@@ -77,12 +77,12 @@ body {
 #home {
     display: grid;
     grid-template-columns: repeat(5, 0.20fr);
-    grid-column-gap: 16px;
-    grid-row-gap: 16px;
+    grid-column-gap: 32px;
+    grid-row-gap: 32px;
 }
 
 #main {
-    margin: 16px;
+    margin: 32px;
     margin-bottom: 0px;
 }
 
