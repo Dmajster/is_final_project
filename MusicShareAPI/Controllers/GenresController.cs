@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicShare.Data;
 using MusicShare.Models;
+using MusicShareAPI.Filters;
 
 namespace MusicShareAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKeyAuth]
     public class GenresController : ControllerBase
     {
         private readonly MusicShareContext _context;

@@ -21,13 +21,13 @@ namespace MusicShareWeb.Controllers
             _context = context;
         }
 
-        // GET: Genres
+        // GET: Posts
         public async Task<IActionResult> Index()
         {
             return View(await _context.Genres.ToListAsync());
         }
 
-        // GET: Genres/Details/5
+        // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,13 +45,13 @@ namespace MusicShareWeb.Controllers
             return View(genre);
         }
 
-        // GET: Genres/Create
+        // GET: Posts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Genres/Create
+        // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +67,7 @@ namespace MusicShareWeb.Controllers
             return View(genre);
         }
 
-        // GET: Genres/Edit/5
+        // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace MusicShareWeb.Controllers
             return View(genre);
         }
 
-        // POST: Genres/Edit/5
+        // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,7 +118,7 @@ namespace MusicShareWeb.Controllers
             return View(genre);
         }
 
-        // GET: Genres/Delete/5
+        // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,7 +136,7 @@ namespace MusicShareWeb.Controllers
             return View(genre);
         }
 
-        // POST: Genres/Delete/5
+        // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

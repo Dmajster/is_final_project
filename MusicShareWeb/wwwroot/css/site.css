@@ -61,17 +61,16 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
     background-color: white;
+    min-height: 100vh;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
+#footer {
+    display: grid;
+    justify-content: center;
+    align-content: center;
     width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    padding: 16px;
 }
 
 #home {
@@ -83,7 +82,7 @@ body {
 
 #main {
     margin: 32px;
-    margin-bottom: 0px;
+    min-height: 100vh;
 }
 
 #navigation {

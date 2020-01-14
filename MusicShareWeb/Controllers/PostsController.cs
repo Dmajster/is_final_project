@@ -100,6 +100,9 @@ namespace MusicShareWeb.Controllers
                 return NotFound();
             }
 
+            post.ViewCount++;
+            await _context.SaveChangesAsync();
+
             return View(post);
         }
 
