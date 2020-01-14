@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using MusicShare.Data;
 
 namespace MusicShareAPI
@@ -28,6 +29,9 @@ namespace MusicShareAPI
         {
             services.AddControllers();
             services.AddDbContext<MusicShareContext>();
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "MusicShare API", Version = "v1" })
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +42,12 @@ namespace MusicShareAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "ContosoPets API v1")
+            );
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -47,6 +57,12 @@ namespace MusicShareAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.Run(context =>
+            {
+                context.Response.Redirect("/swagger");
+                return Task.CompletedTask;
             });
         }
     }
