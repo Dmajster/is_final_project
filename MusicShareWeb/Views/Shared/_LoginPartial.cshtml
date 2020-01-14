@@ -4,16 +4,17 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-
 @if (SignInManager.IsSignedIn(User))
 {
     <button class="ms-nav-button" onclick="location.href = '/Identity/Account/Manage/Index'">
         Hello @UserManager.GetUserName(User)!
     </button>
 
-    <button class="ms-nav-button" onclick="location.href = '/Identity/Account/Logout'">
-        Logout
-    </button>
+    <form class="ms-nav-logout"  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button class="ms-nav-button" onclick="location.href = '/Identity/Account/Logout'">
+            Logout
+        </button>
+    </form>
 }
 else
 {
