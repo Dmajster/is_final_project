@@ -257,5 +257,20 @@ namespace MusicShareWeb.Controllers
         {
             return _context.Posts.Any(e => e.Id == id);
         }
+
+        public IActionResult ChordCheck(int button)
+        {
+            if (button == 0)
+            {
+                TempData["chord"] = "Chord C selected";
+            }
+            else
+            {
+                TempData["chord"] = "Chord 213elected";
+            }
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
