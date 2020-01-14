@@ -89,8 +89,8 @@ body {
     grid-auto-flow: column;
     grid-template-areas: "left middle right";
     grid-template-columns: max-content auto max-content;
-   
-    height: 60px;
+
+    height: 80px;
     box-shadow: 1px 1px 1px 1px #000000;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
@@ -105,6 +105,18 @@ body {
     grid-area: middle;
     display: grid;
     justify-items: center;
+    align-items: center;
+}
+
+.ms-nav-search {
+    width: 100%;
+    min-width: max-content;
+    max-width: 512px;
+    height: calc(80px - 2 * 8px);
+    padding: 16px;
+
+    border: 0;
+    background-color: #efefef;
 }
 
 .ms-nav-right {
@@ -131,6 +143,7 @@ body {
     box-shadow: 1px 1px 1px 1px #000000;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
     height: 20vw;
+    border: 0;
 }
 
 .ms-post-img {
