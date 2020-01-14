@@ -7,7 +7,7 @@
     @foreach (var post in (IEnumerable<Post>)@ViewData["Posts"])
     {
         <button class="ms-post" onclick="location.href = '@Url.Action("Show", "Posts", new { id = post.Id } )'">
-            <div class="ms-post-img"></div>
+            <div class="ms-post-img" style="background-image:url('@post.ThumbnailLink');"></div>
             <div class="ms-post-song">@post.Song.Name</div>
             <div class="ms-post-artist">@post.Artist.Name</div>
             <div class="ms-post-view-count">@post.ViewCount</div>

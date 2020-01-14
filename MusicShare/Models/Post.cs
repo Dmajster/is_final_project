@@ -25,6 +25,8 @@ namespace MusicShare.Models
 
         public string YoutubeLink { get; set; }
 
+        public string? ThumbnailLink { get; set; }
+
         public string? PdfFilePath { get; set; }
 
         public bool Reviewed { get; set; }

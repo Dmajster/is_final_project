@@ -154,6 +154,7 @@ namespace MusicShareWeb.Controllers
                 var videoId = post.YoutubeLink.Split("=")[1];
 
                 post.YoutubeLink = $"https://www.youtube.com/embed/{videoId}";
+                post.ThumbnailLink = $"https://img.youtube.com/vi/{videoId}/0.jpg";
 
                 _context.Add(post);
                 await _context.SaveChangesAsync();
