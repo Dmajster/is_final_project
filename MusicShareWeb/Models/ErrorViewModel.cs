@@ -1,6 +1,4 @@
-using System;
-
-namespace ContosoPetsWeb.Models
+namespace MusicShareWeb.Models
 {
     public class ErrorViewModel
     {

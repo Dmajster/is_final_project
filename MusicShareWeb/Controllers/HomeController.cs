@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Linq;
-using ContosoPetsWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MusicShare.Data;
+using MusicShareWeb.Models;
 
 namespace MusicShareWeb.Controllers
 {

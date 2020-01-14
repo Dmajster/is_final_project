@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
-using MusicShare.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MusicShare.Models;
 
-namespace ContosoPetsWeb.Areas.Identity.Pages.Account.Manage
+namespace MusicShareWeb.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
