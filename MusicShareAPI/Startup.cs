@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MusicShare.Data;
 
 namespace MusicShareAPI
 {
@@ -26,6 +27,7 @@ namespace MusicShareAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<MusicShareContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

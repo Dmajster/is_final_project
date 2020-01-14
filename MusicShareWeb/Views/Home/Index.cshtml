@@ -6,17 +6,10 @@
 
 @foreach (var post in (IEnumerable<Post>)@ViewData["Posts"])
 {
-    <div class="card-columns">
-        <div class="card">
-            <div class="card-img" style="background-image:url('https://img.youtube.com/vi/ltLifPLeWck/0.jpg'); height:250px;"></div>
-            <div class="card-body">
-                <div class="card-title"><h2>@post.Song.Name</h2></div>
-                <h5>@post.Artist.Name</h5>
-
-            </div>
-            <div class="card-footer">@post.ViewCount</div>
-        </div>
+    <div class="ms-post">
+        <div class="ms-post-img"></div>
+        <div class="ms-post-song">@post.Song.Name</div>
+        <div class="ms-post-artist">@post.Artist.Name</div>
+        <div class="ms-post-view-count">@post.ViewCount</div>
     </div>
 }
-
-

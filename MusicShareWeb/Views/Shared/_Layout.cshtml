@@ -8,53 +8,44 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MusicShareWeb</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+    <nav id="navigation">
+        <section class="ms-nav-left">
+            <button class="ms-nav-logo" onclick="location.href = '@Url.Action("Index", "Home")'">
+                MusicShare
+            </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Posts")'">
+                Posts
+            </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Songs")'">
+                Songs
+            </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Genres")'">
+                Genres
+            </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Artists")'">
+                Artists
+            </button>
+        </section>
 
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-fill form-inline">
-                        <input class="form-control flex-fill" style="border-color:black; font-size:12px;" type="search" placeholder="Išči glasbo" aria-label="Išči">
-                    </ul>
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Zacetna</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index">Posts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Songs" asp-action="Index">Songs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Genres" asp-action="Index">Genres</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Artists" asp-action="Index">Artists</a>
-                        </li>
-                    </ul>
-                    
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        <section class="ms-nav-middle">
+            <input class="ms-nav-search" placeholder="Išči glasbo">
+        </section>
+
+        <section class="ms-nav-right">
+            <partial name="_LoginPartial" />
+        </section>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container-fluid">
-            &copy; 2019 - MusicShare - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - MusicShare
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

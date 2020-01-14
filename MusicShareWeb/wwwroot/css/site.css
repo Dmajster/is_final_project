@@ -71,3 +71,49 @@ body {
 }
 
 
+#home {
+    display: grid;
+    grid-template-columns: repeat(4, 25vw);
+}
+
+#navigation {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-areas: "left middle right";
+}
+
+.ms-nav-left {
+    grid-area: left;
+}
+
+.ms-nav-middle {
+    grid-area: middle;
+}
+
+.ms-nav-right {
+    grid-area: right;
+}
+
+
+
+.ms-post {
+    display: grid;
+    grid-template-areas: "image" "song" "artist" "view_count";
+    grid-template-columns: 100%;
+
+    height: 25vw;
+}
+
+.ms-post-img {
+    grid-area: image;
+}
+
+.ms-post-song {
+    grid-area: song;
+}
+.ms-post-artist {
+    grid-area: artist;
+}
+.ms-post-view-count {
+    grid-area: view_count;
+}
