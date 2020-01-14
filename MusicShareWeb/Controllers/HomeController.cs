@@ -24,7 +24,7 @@ namespace MusicShareWeb.Controllers
             ViewData["Posts"] = _context.Posts
                 .Include(p => p.Artist)
                 .Include(p => p.Song)
-                .OrderBy(p => p.ViewCount)
+                .OrderByDescending(p => p.ViewCount)
                 .ToList();
 
             return View();
