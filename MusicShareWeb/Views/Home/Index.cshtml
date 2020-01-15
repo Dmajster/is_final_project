@@ -1,4 +1,9 @@
 ﻿@using MusicShare.Models
+@using Microsoft.AspNetCore.Identity
+@using MusicShare.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,11 +11,31 @@
 <section id="home">
     @foreach (var post in (IEnumerable<Post>)@ViewData["Posts"])
     {
-        <button class="ms-post" onclick="location.href = '@Url.Action("Show", "Posts", new { id = post.Id } )'">
+    <article class="ms-post">
+        <button class="ms-post-top" onclick="location.href = '@Url.Action("Show", "Posts", new { id = post.Id } )'">
             <div class="ms-post-img" style="background-image:url('@post.ThumbnailLink');"></div>
-            <div class="ms-post-song"><h1>@post.Song.Name</h1></div>
-            <div class="ms-post-artist "><h4>@post.Artist.Name</h4></div>
-            <div class="ms-post-view-count mt-5"><h5>@post.ViewCount  <i class="fas fa-eye"></i></h5></div>
+            <div class="ms-post-song">@post.Song.Name</div>
+            <div class="ms-post-artist ">- @post.Artist.Name</div>
         </button>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <section class="ms-post-bottom">
+                
+                <div class="ms-post-view-count">
+                    @post.ViewCount
+                </div>
+
+                <div class="ms-post-view-count-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                
+
+                <button class="ms-post-favorite" data-form-method="post" onclick="location.href = '@Url.Action("Favorite", "Favorites", new { id = post.Id } )'">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </section>
+        }
+    </article>
     }
 </section>

@@ -1,34 +1,45 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicShare.Models
 {
     public class Post
     {
-#nullable enable
         public int Id { get; set; }
 
-        public int? SongId { get; set; }
+        [Required]
+        public int SongId { get; set; }
 
         [ForeignKey("SongId")]
-        public Song? Song { get; set; }
+        public Song Song { get; set; }
 
-        public int? ArtistId { get; set; }
+        [Required]
+        public int ArtistId { get; set; }
 
         [ForeignKey("ArtistId")]
-        public Artist? Artist { get; set; }
+        public Artist Artist { get; set; }
 
+        [Required]
         public int ViewCount { get; set; }
 
+        [Required]
         public string YoutubeLink { get; set; }
 
-        public string? ThumbnailLink { get; set; }
+        [Required]
+        public string ThumbnailLink { get; set; }
 
-        public string? PdfFilePath { get; set; }
+        [Required]
+        public string PdfFilePath { get; set; }
 
+        [Required]
         public bool Reviewed { get; set; }
 
-        public ApplicationUser? Owner { get; set; }
-#nullable disable
+        [Required]
+        public string UserId { get; set; }
 
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
     }
 }

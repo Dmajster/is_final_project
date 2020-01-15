@@ -135,20 +135,35 @@ body {
 }
 
 .ms-post {
-    background-color: #333;
     display: grid;
-    grid-template-areas: "song" "artist" "view_count";
+    grid-template-areas: "top" "bottom";
     grid-template-columns: 100%;
+    grid-template-rows: auto max-content;
+    
     position: relative;
-    align-content: space-around;
-    justify-content: center;
     box-shadow: 1px 1px 1px 1px #000000;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
     height: 20vw;
     border: 0;
     overflow: hidden;
+
+    background: #333;
+    border-radius: 5px;
+}
+
+.ms-post > button {
+    background: 0;
+    border: 0;
+}
+
+.ms-post-top {
+    display: grid;
+    grid-template-areas: "song" "artist" "view_count" "favorite";
+    grid-area: top;
+    align-content: center;
+    justify-content: center;
+    padding: 0;
     color: white;
-    font-size: 24px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
@@ -170,16 +185,46 @@ body {
 }
 
 .ms-post-song {
+    font-size: 32px;
     grid-area: song;
     z-index: 1;
 }
 
 .ms-post-artist {
+    font-size: 16px;
     grid-area: artist;
+    z-index: 1;
+}
+
+
+.ms-post-bottom {
+    display: grid;
+    grid-area: bottom;
+    grid-template-areas: "view_count view_count_icon . favorite";
+    margin: 10%;
+}
+
+.ms-post-view-count, .ms-post-favorite, .ms-post-view-count-icon {
+    color: white;
+    font-size: 20px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.ms-post-view-count-icon {
+    grid-area: view_count_icon;
     z-index: 1;
 }
 
 .ms-post-view-count {
     grid-area: view_count;
     z-index: 1;
+}
+
+.ms-post-favorite {
+    grid-area: favorite;
+    z-index: 1;
+
+    border: 0;
+    padding: 0;
+    background: 0;
 }

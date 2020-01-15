@@ -16,18 +16,22 @@
             </button>
             @if (User.IsInRole("Administrator"))
             {
-                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Posts")'">
-                    Posts
-                </button>
-                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Songs")'">
-                    Songs
-                </button>
-                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Genres")'">
-                    Genres
-                </button>
-                <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Artists")'">
-                    Artists
-                </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Posts")'">
+                Posts
+            </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Songs")'">
+                Songs
+            </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Genres")'">
+                Genres
+            </button>
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Artists")'">
+                Artists
+            </button>
+
+            <button class="ms-nav-button" onclick="location.href = '@Url.Action("Index", "Favorites")'">
+                Favorites
+            </button>
             }
         </section>
 

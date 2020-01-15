@@ -8,6 +8,20 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200112180003_UpdatePost.cs" />
     <Compile Remove="Migrations\20200112180003_UpdatePost.Designer.cs" />
+    <Compile Remove="Migrations\20200115070323_AddedFavorites.cs" />
+    <Compile Remove="Migrations\20200115070323_AddedFavorites.Designer.cs" />
+    <Compile Remove="Migrations\20200115070447_AddedFavorites.cs" />
+    <Compile Remove="Migrations\20200115070447_AddedFavorites.Designer.cs" />
+    <Compile Remove="Migrations\20200115075347_ChangedEverything.cs" />
+    <Compile Remove="Migrations\20200115075347_ChangedEverything.Designer.cs" />
+    <Compile Remove="Migrations\20200115075548_ChangedEverything.cs" />
+    <Compile Remove="Migrations\20200115075548_ChangedEverything.Designer.cs" />
+    <Compile Remove="Migrations\20200115081251_ChangedEverything.cs" />
+    <Compile Remove="Migrations\20200115081251_ChangedEverything.Designer.cs" />
+    <Compile Remove="Migrations\20200115082838_Initial.cs" />
+    <Compile Remove="Migrations\20200115082838_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200115083154_Initial.cs" />
+    <Compile Remove="Migrations\20200115083154_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

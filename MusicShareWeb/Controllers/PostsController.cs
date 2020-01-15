@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,11 +23,13 @@ namespace MusicShareWeb.Controllers
     public class PostsController : Controller
     {
         private readonly MusicShareContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
         private IWebHostEnvironment _webHostEnvironment;
-        public PostsController(MusicShareContext context, IWebHostEnvironment environment)
+        public PostsController(MusicShareContext context, IWebHostEnvironment environment, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _webHostEnvironment = environment;
+            _userManager = userManager;
         }
 
         private IEnumerable<SelectListItem> GetSongs()
@@ -107,18 +113,49 @@ namespace MusicShareWeb.Controllers
         }
 
 
+        public class InsertPostModel
+        {
+            public int Id { get; set; }
+
+            [Required]
+            public int SongId { get; set; }
+
+            [ForeignKey("SongId")]
+            public Song Song { get; set; }
+
+            [Required]
+            public int ArtistId { get; set; }
+
+            [ForeignKey("ArtistId")]
+            public Artist Artist { get; set; }
+
+            [Required]
+            public string YoutubeLink { get; set; }
+
+            public string PdfFilePath { get; set; }
+        }
+
+
         // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SongId,ArtistId,ViewCount,YoutubeLink,PdfFilePath,Reviewed")] Post post, List<IFormFile> files)
+        public async Task<IActionResult> Create([Bind("Id,SongId,ArtistId,ViewCount,YoutubeLink,PdfFilePath,Reviewed")] InsertPostModel insertPost, List<IFormFile> files)
         {
-            var isNormalYoutubeLink = Regex.IsMatch(post.YoutubeLink, "((http(s)?://)(www.)?)?youtube.com\\/watch\\?v=([^#&?]).*");
+            var isNormalYoutubeLink = Regex.IsMatch(insertPost.YoutubeLink, "((http(s)?://)(www.)?)?youtube.com\\/watch\\?v=([^#&?]).*");
 
             if (ModelState.IsValid && isNormalYoutubeLink)
             {
                 var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+
+                var post = new Post
+                {
+                    ArtistId = insertPost.ArtistId,
+                    SongId = insertPost.SongId,
+                    Reviewed = false,
+                    ViewCount = 0
+                };
 
                 foreach (var file in files)
                 {
@@ -154,8 +191,9 @@ namespace MusicShareWeb.Controllers
                     }
                 }
 
-                var videoId = post.YoutubeLink.Split("=")[1];
+                var videoId = insertPost.YoutubeLink.Split("=")[1];
 
+                post.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 post.YoutubeLink = $"https://www.youtube.com/embed/{videoId}";
                 post.ThumbnailLink = $"https://img.youtube.com/vi/{videoId}/0.jpg";
 
@@ -164,10 +202,10 @@ namespace MusicShareWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", post.ArtistId);
-            ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id", post.SongId);
+            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", insertPost.ArtistId);
+            ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id", insertPost.SongId);
 
-            return View(post);
+            return View(insertPost);
         }
 
         // GET: Posts/Edit/5
@@ -187,15 +225,43 @@ namespace MusicShareWeb.Controllers
             ViewBag.ArtistsList = new SelectList(GetArtists(), "Value", "Text");
             return View(post);
         }
+        public class EditPostModel
+        {
+            public int Id { get; set; }
+
+            [Required]
+            public int SongId { get; set; }
+
+            [ForeignKey("SongId")]
+            public Song Song { get; set; }
+
+            [Required]
+            public int ArtistId { get; set; }
+
+            [ForeignKey("ArtistId")]
+            public Artist Artist { get; set; }
+
+            [Required]
+            public string YoutubeLink { get; set; }
+
+            [Required]
+            public string PdfFilePath { get; set; }
+
+            [Required]
+            public int ViewCount { get; set; }
+
+            [Required]
+            public bool Reviewed { get; set; }
+        }
 
         // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SongId,ArtistId,ViewCount,YoutubeLink,PdfFilePath,Reviewed")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SongId,ArtistId,ViewCount,YoutubeLink,PdfFilePath,Reviewed")] EditPostModel editPost)
         {
-            if (id != post.Id)
+            if (id != editPost.Id)
             {
                 return NotFound();
             }
@@ -204,12 +270,21 @@ namespace MusicShareWeb.Controllers
             {
                 try
                 {
+                    var post = _context.Find<Post>(editPost.Id);
+                    post.Id = editPost.Id;
+                    post.ArtistId = editPost.ArtistId;
+                    post.SongId = editPost.SongId;
+                    post.ViewCount = editPost.ViewCount;
+                    post.YoutubeLink = editPost.YoutubeLink;
+                    post.PdfFilePath = editPost.PdfFilePath;
+                    post.Reviewed = editPost.Reviewed;
+
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PostExists(post.Id))
+                    if (!PostExists(editPost.Id))
                     {
                         return NotFound();
                     }
@@ -220,9 +295,9 @@ namespace MusicShareWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", post.ArtistId);
-            ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id", post.SongId);
-            return View(post);
+            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", editPost.ArtistId);
+            ViewData["SongId"] = new SelectList(_context.Songs, "Id", "Id", editPost.SongId);
+            return View(editPost);
         }
 
         // GET: Posts/Delete/5
